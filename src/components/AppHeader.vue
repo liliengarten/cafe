@@ -8,10 +8,9 @@
       <img src="@/assets/img/logo.png" alt="logo">
     </article>
     <nav>
-      <a href="#">Сотрудники</a>
-      <a href="#">Смены</a>
-      <a href="#">Заказы</a>
-      <a href="#" class="approve_button">Вход</a>
+      <router-link to="employees">Сотрудники</router-link>
+      <router-link to="shifts">Смены</router-link>
+      <router-link to="orders">Заказы</router-link>
       <a href="#" class="cancel_button">Выход</a>
     </nav>
   </header>

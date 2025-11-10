@@ -16,7 +16,6 @@
     <button class="approve_button">Отправить</button>
     <button class="cancel_button">Отмена</button>
   </div>
-  </form>
 </template>
 
 <style scoped>
