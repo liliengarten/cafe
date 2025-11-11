@@ -6,18 +6,20 @@ import addShift from "@/components/AddShift.vue";
 import EmployeesView from "@/views/EmployeesView.vue";
 import ShiftsView from "@/views/ShiftsView.vue";
 import OrdersView from "@/views/OrdersView.vue";
+import authorizationView from "@/views/AuthorizationView.vue";
+import HomeView from "@/views/HomeView.vue";
 
 const routes = [
     {
         path: '/',
         name: 'authorization',
-        component: addShift
+        component: authorizationView,
     },
-    // {
-    //   path: '/home',
-    //   name: 'home',
-    //   component: HomeView
-    // },
+    {
+      path: '/home',
+      name: 'home',
+      component: HomeView
+    },
     {
         path: '/employees',
         name: 'employees',

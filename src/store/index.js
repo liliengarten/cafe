@@ -1,11 +1,12 @@
-import {reactive} from "vue";
+import {reactive, ref} from "vue";
 
 export const store = reactive({
-    userToken: '',
+    user: ref({}),
+    users: ref({}),
+    addWorkerVisible: false,
 
-    setUserToken(token){
-        this.userToken = token
-        localStorage.setItem('userToken', token)
+    addWorkerVisibility() {
+        this.addWorkerVisible = !this.addWorkerVisible;
     }
 })
 

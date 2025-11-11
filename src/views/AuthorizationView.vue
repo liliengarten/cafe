@@ -2,11 +2,12 @@
 import { baseUrl } from '@/main.js'
 import { store } from '@/store/index'
 import { useRouter } from "vue-router";
+import {reactive} from "vue";
 
-let userInfo = {
+let userInfo = reactive({
   userLogin: '',
   userPassword: ''
-}
+})
 
 const router = useRouter();
 
@@ -26,7 +27,9 @@ let attemptLogin = async() => {
     if (!res.ok) throw "Authorization failed :("
 
     const { data } = await res.json();
-    store.setUserToken(data.user_token)
+
+    localStorage.setItem("userToken", data.user_token);
+    localStorage.setItem("userLogin", userInfo.userLogin);
 
     router.push('/home')
   } catch(err) {

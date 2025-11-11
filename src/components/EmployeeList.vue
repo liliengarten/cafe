@@ -1,5 +1,5 @@
 <script setup>
-
+import {store} from "@/store/index"
 </script>
 
 <template>
@@ -8,7 +8,7 @@
       <span>Имя</span>
       <span>Статус</span>
       <span>Должность</span>
-      <button>+</button>
+      <button @click="store.addWorkerVisibility">+</button>
     </article>
     <article>
       <span>Ariane</span>
