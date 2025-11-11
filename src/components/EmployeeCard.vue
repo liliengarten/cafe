@@ -3,53 +3,29 @@
   import {onMounted, reactive, ref} from "vue";
 
   const props = defineProps({
-    user: {
-      type: Number,
+    employee: {
+      type: Object,
       required: true
     }
   })
 
-  let currentUser = reactive({})
-
-  let getUser = async() => {
-    try {
-      const res = await fetch(baseUrl + '/user/' + props.user, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${localStorage.getItem("userToken")}`
-        }
-      })
-
-      if (!res.ok) throw "Something went wrong :("
-
-      const { data } = await res.json();
-      Object.assign(currentUser, data)
-    } catch(err) {
-      console.log(err)
-    }
-  }
-
-  onMounted(() => {
-    getUser()
-  })
 </script>
 
 <template>
   <div class="worker">
     <div class="d-f">
       <p>ФИО: </p>
-      <p>{{ currentUser.name }}</p>
-      <p>{{ currentUser.surname }}</p>
-      <p>{{ currentUser.patronymic }}</p>
+      <p>{{ employee.name }}</p>
+      <p>{{ employee.surname }}</p>
+      <p>{{ employee.patronymic }}</p>
     </div>
     <div class="d-f">
       <p>Логин:</p>
-      <p>{{currentUser.login}}</p>
+      <p>{{employee.login}}</p>
     </div>
 
-    <p>{{currentUser.group}}</p>
-    <img v-if="currentUser.photo_file" :src="baseUrl + currentUser.photo_file" alt="worker photo">
+    <p>{{employee.group}}</p>
+    <img v-if="employee.photo_file" :src="baseUrl + employee.photo_file" alt="worker photo">
   </div>
 </template>
 

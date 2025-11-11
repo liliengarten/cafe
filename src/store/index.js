@@ -1,12 +1,14 @@
 import {reactive, ref} from "vue";
+import {baseUrl} from "@/main";
 
 export const store = reactive({
-    user: ref({}),
-    users: ref({}),
+    employee: {},
+    employees: {},
+
     addWorkerVisible: false,
 
     addWorkerVisibility() {
         this.addWorkerVisible = !this.addWorkerVisible;
-    }
+    },
 })
 
