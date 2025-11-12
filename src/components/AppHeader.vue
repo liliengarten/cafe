@@ -29,12 +29,12 @@ let logout = async() => {
 
 <template>
   <header>
-    <article>
+    <router-link to="/home">
       <img src="@/assets/img/logo.png" alt="logo">
-    </article>
+    </router-link>
     <nav>
       <router-link to="employees">Сотрудники</router-link>
-      <router-link to="shifts">Смены</router-link>
+      <router-link v-show="store.userRole === 'Администратор'" to="shifts">Смены</router-link>
       <router-link to="orders">Заказы</router-link>
       <button @click="logout" class="cancel_button">Выход</button>
     </nav>

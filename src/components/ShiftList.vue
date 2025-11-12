@@ -1,46 +1,44 @@
 <script setup>
+import {baseUrl} from "@/main";
+import {onMounted, ref} from "vue";
+import ShiftCard from "@/components/ShiftCard.vue";
+import AddShift from "@/components/AddShift.vue";
+import {store} from "@/store/index"
+
+
+const shifts = ref({})
+
+const getShifts = async () => {
+  try {
+    const res = await fetch(baseUrl + '/work-shift', {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("userToken")}`
+      }
+    })
+
+    if (!res.ok) throw "Authorization failed :("
+
+    const data = await res.json();
+    shifts.value = data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+onMounted(() => {
+  getShifts()
+})
 
 </script>
 
 <template>
   <section class="shift">
-    <button class="approve_button">Добавить смену</button>
-    <article>
-      <h2>Смена №5</h2>
-      <p>Начало смены в 2021-09-19 08:00</p>
-      <p>Конец смены в 2021-09-19 18:00</p>
-      <p class="working">Статус: Открыта</p>
-      <button class="approve_button">Управление</button>
-    </article>
-    <article>
-      <h2>Смена №4</h2>
-      <p>Начало смены в 2021-09-18 08:00</p>
-      <p>Конец смены в 2021-09-18 18:00</p>
-      <p class="fired">Статус: Закрыта</p>
-      <button class="approve_button">Управление</button>
-    </article>
-    <article>
-      <h2>Смена №3</h2>
-      <p>Начало смены в 2021-09-17 08:00</p>
-      <p>Конец смены в 2021-09-17 18:00</p>
-      <p class="fired">Статус: Закрыта</p>
-      <button class="approve_button">Управление</button>
-    </article>
-    <article>
-      <h2>Смена №2</h2>
-      <p>Начало смены в 2021-09-16 08:00</p>
-      <p>Конец смены в 2021-09-16 18:00</p>
-      <p class="fired">Статус: Закрыта</p>
-      <button class="approve_button">Управление</button>
-    </article>
-    <article>
-      <h2>Смена №1</h2>
-      <p>Начало смены в 2021-09-15 08:00</p>
-      <p>Конец смены в 2021-09-15 18:00</p>
-      <p class="fired">Статус: Закрыта</p>
-      <button class="approve_button">Управление</button>
-    </article>
+    <button class="approve_button" @click="store.addShiftVisibility">Добавить смену</button>
+    <shift-card v-for="shift in shifts" :key="shift.id" :shift="shift"></shift-card>
+    <add-shift @shift-created="getShifts" v-if="store.addShiftVisible"></add-shift>
   </section>
+
 </template>
 
 <style scoped>

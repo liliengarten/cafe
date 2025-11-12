@@ -50,11 +50,13 @@ a {
 
 .modal {
     position: absolute;
-    min-width: 100vw;
-    min-height: 100vh;
-    left: 0;
+    min-width: 40vw;
+    min-height: 50vh;
+    left: calc(50% - 40wv);
     background: rgba(0, 95, 182, 0.98);
     z-index: 100;
+
+    border-radius: 12px;
 }
 
 /* header section */
@@ -107,6 +109,11 @@ header img {
 }
 
 /* employees */
+
+.employees {
+    width: 100vw;
+    height: 100%;
+}
 
 .employees > article {
     display: flex;
@@ -284,13 +291,12 @@ header img {
 
 /* modal */
 
-.modal {
-    display: flex;
-}
 
 form {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin: auto;
 }
 

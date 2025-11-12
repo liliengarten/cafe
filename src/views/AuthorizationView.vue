@@ -2,7 +2,7 @@
 import {baseUrl} from '@/main.js'
 import {store} from '@/store/index'
 import {useRouter} from "vue-router";
-import {reactive} from "vue";
+import {onMounted, reactive} from "vue";
 
 const router = useRouter();
 
@@ -31,55 +31,10 @@ const attemptLogin = async () => {
     localStorage.setItem("userToken", data.user_token);
     localStorage.setItem("userLogin", userInfo.userLogin);
 
-    await getEmployees()
-    await getEmployee()
+    await store.getEmployees()
+    await store.getEmployee(0, true)
 
     router.push('/home')
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-const getEmployees = async () => {
-  try {
-    const res = await fetch(baseUrl + '/user', {
-      method: "GET",
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem("userToken")}`,
-      }
-    })
-
-    if (!res.ok) throw "Authorization failed :("
-
-    const {data} = await res.json();
-    store.employees = data
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-const getEmployee = async () => {
-  let userId = 0
-
-  for (let employee of store.employees) {
-    if (employee.login === localStorage.getItem("userLogin")) {
-      userId = employee.id
-    }
-  }
-
-  try {
-    const res = await fetch(baseUrl + '/user/' + userId, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${localStorage.getItem("userToken")}`
-      }
-    })
-
-    if (!res.ok) throw "Something went wrong :("
-
-    const { data } = await res.json();
-    store.employee = data
   } catch (err) {
     console.log(err)
   }

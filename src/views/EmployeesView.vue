@@ -10,7 +10,6 @@ import {store} from "@/store/index"
 <template>
   <add-employee v-show="store.addWorkerVisible"></add-employee>
   <employee-list></employee-list>
-  <employee-card></employee-card>
 </template>
 
 <style scoped>

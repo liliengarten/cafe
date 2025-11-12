@@ -7,30 +7,32 @@ let employeeInfo = reactive({
   name: '',
   login: '',
   password: '',
-  role: '',
+  role_id: '',
   photo_file: ''
 })
 
+let changePhotoFile = (event) => {
+  employeeInfo.photo_file = event.target.files[0]
+}
+
 let createEmployee = async() => {
   try {
+    const formData = new FormData();
+
+    for(let key in employeeInfo) {
+      formData.append(key, employeeInfo[key]);
+    }
+
     const res = await fetch(baseUrl + '/user', {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         "Authorization": `Bearer ${localStorage.getItem("userToken")}`
       },
-      body: JSON.stringify({
-        name: employeeInfo.name,
-        login: employeeInfo.login,
-        password: employeeInfo.password,
-        role_id: employeeInfo.role_id,
-        photo_file: employeeInfo.photo_file,
-      })
+      body: formData
     })
 
     if (!res.ok) throw "Something went wrong :("
-
-    const { data } = await res.json();
+    await store.getEmployees
   } catch(err) {
     console.log(err)
   }
@@ -38,7 +40,7 @@ let createEmployee = async() => {
 </script>
 
 <template>
-  <form class="modal" @submit.prevent>
+  <form class="modal" enctype="multipart/form-data" @submit.prevent>
     <h2>Добавление нового сотрудника</h2>
     <div>
       <label for="name">Имя</label>
@@ -54,11 +56,11 @@ let createEmployee = async() => {
     </div>
     <div>
       <label for="photo_file" class="photo_input">Фото</label>
-      <input @change="поменять" type="file" name="photo" id="photo_file">
+      <input @change="changePhotoFile" type="file" name="photo" id="photo_file">
     </div>
     <div>
       <label for="role">Роль</label>
-      <select name="role" id="role" v-model="employeeInfo.role">
+      <select name="role" id="role" v-model="employeeInfo.role_id">
         <option value="nothing" selected disabled>Выберите роль:</option>
         <option value="1">Администратор</option>
         <option value="2">Официант</option>
@@ -66,6 +68,11 @@ let createEmployee = async() => {
       </select>
     </div>
     <div>
+      <p>{{employeeInfo.name}}</p>
+      <p>{{employeeInfo.login}}</p>
+      <p>{{employeeInfo.password}}</p>
+      <p>{{employeeInfo.photoFile}}</p>
+      <p>{{employeeInfo.roleId}}</p>
       <button @click="store.addWorkerVisibility(), createEmployee()" class="approve_button">Отправить</button>
       <button @click="store.addWorkerVisibility()" class="cancel_button">Отмена</button>
     </div>
