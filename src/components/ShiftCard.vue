@@ -2,6 +2,8 @@
   import {computed} from "vue";
   import {store} from "@/store/index.js"
 
+  const emit = defineEmits(["shiftDetailed"])
+
   const props = defineProps({
     shift: {
       type: Object,
@@ -13,6 +15,12 @@
     if (props.shift.active) return 'Открыта'
     else return 'Закрыта'
   })
+
+  const emitShiftDetailed = () => {
+    store.shiftDetailedVisibility
+    emit('shiftDetailed', props.shift)
+  }
+
 </script>
 
 <template>
@@ -21,7 +29,7 @@
     <p>Начало смены в {{shift.start}}</p>
     <p>Конец смены в {{shift.end}}</p>
     <p class="working">Статус: {{shiftStatus}}</p>
-    <button class="approve_button" >Управление</button>
+    <button class="approve_button" @click="emitShiftDetailed">Управление</button>
   </article>
 </template>
 

@@ -4,9 +4,11 @@
   import {useRoute} from "vue-router";
   import {ref} from "vue";
 
-  const route = useRoute()
+  //добавление сотрудника на смену
 
+  const route = useRoute()
   const employee = ref('')
+  const emit = defineEmits(["fireEmployee"])
 
   if (route.path === '/home') employee.value = store.user
   else if (route.path === '/employees') employee.value = store.employee
@@ -25,10 +27,9 @@
       <p>Логин:</p>
       <p>{{employee.login}}</p>
     </div>
-
     <p>{{employee.group}}</p>
     <img v-if="employee.photo_file" :src="baseUrl + employee.photo_file" alt="worker photo">
-    <button v-show="route.path === '/employees'" @click="fireEmployee">Уволен нахуй</button>
+    <button v-show="route.path === '/employees'" @click="emit('fireEmployee', employee.value.id)">Уволен нахуй</button>
   </div>
 </template>
 

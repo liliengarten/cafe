@@ -21,11 +21,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['fireEmployee', 'employeeDetailed'])
-
-const emitFireEmployee = () => {
-  emit('fireEmployee', props.id)
-}
+const emit = defineEmits(['employeeDetailed'])
 
 const emitEmployeeDetailed = () => {
   store.employeeDetailedVisiblity()

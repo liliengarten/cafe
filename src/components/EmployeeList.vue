@@ -3,9 +3,19 @@ import {store} from "@/store/index"
 import EmployeeListCard from "@/components/EmployeeListCard.vue";
 import EmployeeCard from "@/components/EmployeeCard.vue";
 import {ref} from "vue";
+import {baseUrl} from "@/main";
 
 const handleFireEmployee = async(id) => {
-  console.log(id)
+  try {
+    const res = await fetch(baseUrl + `/user/${id}/to-dismiss`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("userToken")}`
+      }
+    })
+  } catch(err) {
+    console.log(err)
+  }
 }
 
 const handleEmployeeId = (id) => {
@@ -29,12 +39,7 @@ const employeeId = ref(0)
         <employee-list-card @fire-employee="handleFireEmployee"
                             @employee-detailed="handleEmployeeId"
 
-                            v-for="employee in store.employees" :key="employee.id"
-
-                            :id="employee.id"
-                            :group="employee.group"
-                            :status="employee.status"
-                            :name="employee.name">
+                            v-for="employee in store.employees" :key="employee.id">
         </employee-list-card>
       </div>
     </section>

@@ -8,20 +8,25 @@ export const store = reactive({
     employee: {},
     employees: {},
 
+    shifts: {},
+
     addWorkerVisible: false,
     addShiftVisible: false,
+    shiftDetailedVisible: false,
     employeeDetailedVisible: false,
 
 
     addWorkerVisibility() {
         this.addWorkerVisible = !this.addWorkerVisible;
     },
-    employeeDetailedVisiblity() {
+    employeeDetailedVisiblity() { // опечатка!
         this.employeeDetailedVisible = !this.employeeDetailedVisible
     },
     addShiftVisibility() {
         this.addShiftVisible = !this.addShiftVisible
-        console.log(1)
+    },
+    shiftDetailedVisibility() {
+        this.shiftDetailedVisible = !this.shiftDetailedVisible
     },
 
     async getEmployees(){
@@ -72,6 +77,23 @@ export const store = reactive({
             else this.employee = data
 
             console.log(this.userRole)
+        } catch (err) {
+            console.log(err)
+        }
+    },
+    async getShifts () {
+        try {
+            const res = await fetch(baseUrl + '/work-shift', {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("userToken")}`
+                }
+            })
+
+            if (!res.ok) throw "Authorization failed :("
+
+            const data = await res.json();
+            this.shifts = data
         } catch (err) {
             console.log(err)
         }
