@@ -14,7 +14,7 @@ const routes = [
     {
         path: '/',
         name: 'authorization',
-        component: HomeView, //authorizationView
+        component: AuthorizationView,
     },
     {
       path: '/home',
