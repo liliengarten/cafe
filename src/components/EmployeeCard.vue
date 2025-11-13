@@ -24,33 +24,69 @@
 </script>
 
 <template>
-  <div class="modal worker">
-    <button @click="store.employeeDetailedVisibility"> Close </button>
-    <div class="d-f">
-      <p>ФИО: </p>
-      <p>{{ employee.value.name }}</p>
+  <div class="modal">
+    <div class="modalWrapper">
+      <button @click="store.employeeDetailedVisibility" class="close_button"> Назад</button>
+      <div class="employeeInfo">
+        <img class="employeePhoto" src="./peter.jpg" alt="">
+      <!--    <img v-if="employee.photo_file" :src="baseUrl + employee.photo_file" alt="worker photo">-->
+        <div class="d-f">
+          <p>ФИО: </p>
+          <!--      <p>{{ employee.value.name }}</p>-->
+          <p>Питер</p>
+        </div>
+        <div class="d-f">
+          <p>Логин:</p>
+          <!--      <p>{{employee.value.login}}</p>-->
+          <p>Гриффин</p>
+        </div>
+        <!--    <p>{{employee.group}}</p>-->
+        <div class="d-f">
+          <p>Должность:</p>
+          <p>Супер админ</p>
+        </div>
+
+        <div class="d-f">
+          <p>Статус:</p>
+<!--          <p>{{employee.status}}</p>-->
+          <p>В питеркоптере</p>
+        </div>
+      <button @click="fireEmployee" class="cancel_button">Уволен нахуй</button>
+      </div>
+
+      <div class="shifts">
+        <h3>Смены</h3>
+        <p>sdf</p>
+        <p>sdf</p>
+        <p>sdf</p>
+        <p>sdf</p>
+      </div>
     </div>
-    <div class="d-f">
-      <p>Логин:</p>
-      <p>{{employee.value.login}}</p>
-    </div>
-    <p>{{employee.group}}</p>
-    <img v-if="employee.photo_file" :src="baseUrl + employee.photo_file" alt="worker photo">
-    <button @click="fireEmployee">Уволен нахуй</button>
   </div>
 </template>
 
 <style scoped>
-.d-f {
-  display: flex;
-}
-
-.worker {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
+* {
   color: white;
 }
+
+.modalWrapper {
+  flex-direction: row;
+  position: relative;
+
+  justify-content: space-between;
+  padding-inline: 10%;
+}
+
+
+.cancel_button {
+  margin-left: 0;
+}
+
+.shifts {
+  margin-bottom: auto;
+  max-height: 100%;
+  overflow-y: scroll;
+}
+
 </style>

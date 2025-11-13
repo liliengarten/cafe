@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <section class="orders" style="display: none">
+  <section class="orders">
     <button class="approve_button">Принять заказ</button>
     <article>
       <h2>Столик №1</h2>

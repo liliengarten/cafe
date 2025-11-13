@@ -39,19 +39,22 @@ const addShift = async () => {
 
 <template>
   <div class="modal">
-    <button @click="store.addShiftVisibility">Close</button>
-    <h2>Добавление смены</h2>
-    <div>
-      <label for="start">Начало</label>
-      <input type="datetime-local" name="login" id="start" v-model="shiftInfo.start">
-    </div>
-    <div>
-      <label for="end">Конец</label>
-      <input type="datetime-local" name="password" id="end" v-model="shiftInfo.end">
-    </div>
-    <div>
-      <button class="approve_button" @click="addShift">Отправить</button>
-      <button class="cancel_button">Отмена</button>
+    <div class="modalWrapper">
+      <form>
+        <h2>Добавление смены</h2>
+        <div>
+          <label for="start">Начало</label>
+          <input type="datetime-local" name="login" id="start" v-model="shiftInfo.start">
+        </div>
+        <div>
+          <label for="end">Конец</label>
+          <input type="datetime-local" name="password" id="end" v-model="shiftInfo.end">
+        </div>
+        <div class="buttonSection">
+          <button class="cancel_button" @click="store.addShiftVisibility">Отмена</button>
+          <button class="approve_button" @click="addShift">Отправить</button>
+        </div>
+      </form>
     </div>
   </div>
 </template>

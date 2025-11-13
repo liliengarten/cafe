@@ -1,7 +1,7 @@
 <script setup>
-import { store } from "@/store/index";
-import { computed, onMounted, ref } from "vue";
-import { baseUrl } from "@/main";
+import {store} from "@/store/index";
+import {computed, onMounted, ref} from "vue";
+import {baseUrl} from "@/main";
 import EmployeeCard from "@/components/EmployeeCard.vue";
 
 const shift = store.shift;
@@ -68,7 +68,7 @@ const getShiftOrders = async () => {
 
     if (!res.ok) throw "Authorization failed :(";
 
-    const { data } = await res.json();
+    const {data} = await res.json();
     orders.value = data;
   } catch (err) {
     console.log(err);
@@ -86,25 +86,25 @@ const getShiftEmployees = async () => {
 
     if (!res.ok) throw "Authorization failed :(";
 
-    const { data } = await res.json();
+    const {data} = await res.json();
     employees.value = data.users;
   } catch (err) {
     console.log(err);
   }
 };
 
-const removeEmployee = async() => {
+const removeEmployee = async () => {
   console.log(employeeToRemove.value)
 
   try {
     const res = await fetch(
-      baseUrl + `/work-shift/${shift.value.id}/user/${employeeToRemove.value}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-        },
-      }
+        baseUrl + `/work-shift/${shift.value.id}/user/${employeeToRemove.value}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+          },
+        }
     );
 
     if (!res.ok) throw "Authorization failed :(";
@@ -118,17 +118,17 @@ const addEmployee = async () => {
   console.log(employeeToAdd.value)
   try {
     const res = await fetch(
-      baseUrl + `/work-shift/${shift.value.id}/user`,
-      {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-        },
-        body: JSON.stringify({
-          user_id: employeeToAdd.value
-        })
-      }
+        baseUrl + `/work-shift/${shift.value.id}/user`,
+        {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+          },
+          body: JSON.stringify({
+            user_id: employeeToAdd.value
+          })
+        }
     );
 
     if (!res.ok) throw "Authorization failed :(";
@@ -141,12 +141,13 @@ const addEmployee = async () => {
 
 <template>
   <div class="modal">
-    <button @click="store.shiftDetailedVisibility">X</button>
-    <p>{{ shift.id }}</p>
+    <form class="modalWrapper">
+      <button @click="store.shiftDetailedVisibility" class="close_button">Назад</button>
+      <p>{{ shift.id }}</p>
 
-    <div>
       <div>
-        <h3>Удалить сотрудника со смены</h3>
+        <article>
+          <h3>Удалить сотрудника со смены</h3>
           <select v-model="employeeToRemove">
             <option v-for="employee in employees" :value="employee.id">
               {{ employee.group }}
@@ -154,11 +155,11 @@ const addEmployee = async () => {
             </option>
           </select>
 
-          <button @click="removeEmployee">Удалить сотрудника</button>
-      </div>
+          <button @click="removeEmployee" class="cancel_button">Удалить сотрудника</button>
+        </article>
 
-      <div>
-        <h3>Добавить сотрудника на смену</h3>
+        <article>
+          <h3>Добавить сотрудника на смену</h3>
           <select v-model="employeeToAdd">
             <option v-for="employee in store.employees" :value="employee.id">
               {{ employee.group }}
@@ -166,30 +167,20 @@ const addEmployee = async () => {
             </option>
           </select>
 
-          <button @click="addEmployee">Добавить сотрудника</button>
+          <button @click="addEmployee" class="approve_button">Добавить сотрудника</button>
+        </article>
       </div>
 
       <!--  <order-list :orders="orders"></order-list>-->
       <button @click="closeShift" v-if="shiftStatus">Закрыть смену</button>
-      <button @click="openShift" v-else>Открыть смену</button>
-    </div>
+      <button @click="openShift" v-else class="approve_button">Открыть смену</button>
+    </form>
   </div>
 </template>
 
 <style scoped>
-.employee {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  color: white;
-  width: 30%;
+.modalWrapper {
+  flex-direction: row;
 }
 
-.employeesSmall {
-  max-height: 300px;
-  overflow-y: scroll;
-}
-.wrapper {
-  width: 100%;
-}
 </style>

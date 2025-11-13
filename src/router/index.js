@@ -8,12 +8,13 @@ import ShiftsView from "@/views/ShiftsView.vue";
 import OrdersView from "@/views/OrdersView.vue";
 import authorizationView from "@/views/AuthorizationView.vue";
 import HomeView from "@/views/HomeView.vue";
+import ShiftDetailed from "@/components/ShiftDetailed.vue";
 
 const routes = [
     {
         path: '/',
         name: 'authorization',
-        component: authorizationView,
+        component: HomeView, //authorizationView
     },
     {
       path: '/home',
