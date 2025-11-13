@@ -20,7 +20,7 @@ export const store = reactive({
     addWorkerVisibility() {
         this.addWorkerVisible = !this.addWorkerVisible;
     },
-    employeeDetailedVisiblity() { // опечатка!
+    employeeDetailedVisibility() {
         this.employeeDetailedVisible = !this.employeeDetailedVisible
     },
     addShiftVisibility() {
@@ -30,7 +30,38 @@ export const store = reactive({
         this.shiftDetailedVisible = !this.shiftDetailedVisible
     },
 
-    async getEmployees(){
+    async getUserRole() {
+        try {
+            const adminCheck = await fetch(baseUrl + '/user', {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("userToken")}`,
+                }
+            })
+
+            if (adminCheck.status === 200) {
+                this.userRole = 'Администратор'
+                return
+            }
+
+            else {
+              const cookCheck = await fetch(baseUrl + '/order/taken/get', {
+                method: "GET",
+                headers: {
+                  "Authorization": `Bearer ${localStorage.getItem("userToken")}`,
+                }
+              })
+
+              if (cookCheck.status === 200) {
+                this.userRole = 'Повар'
+                return
+              }
+            }
+        } catch(err) {
+            console.log(1)
+        }
+    },
+    async getEmployees() {
         try {
             const res = await fetch(baseUrl + '/user', {
                 method: "GET",
@@ -89,34 +120,26 @@ export const store = reactive({
     setEmployee(employee) {
         this.employee.value = employee
     },
-    async getUser(login) {
-        let id = 0
-
-        for (let employee of this.employees) {
-            if (employee.login === login) {
-                id = employee.id;
-            }
-        }
-
-        try {
-            const res = await fetch(baseUrl + '/user/' + id, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem("userToken")}`
-                }
-            })
-
-            if (!res.ok) throw "Something went wrong :("
-
-            const { data } = await res.json();
-            this.user.value = data
-            this.employee.value = data
-            this.userRole = data.group
-        } catch (err) {
-            console.log(err)
-        }
-
-    }
+    // async getUser(id) {
+    //     try {
+    //         const res = await fetch(baseUrl + '/user/' + id, {
+    //             method: "GET",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 "Authorization": `Bearer ${localStorage.getItem("userToken")}`
+    //             }
+    //         })
+    //
+    //         if (!res.ok) throw "Something went wrong :("
+    //
+    //         const { data } = await res.json();
+    //
+    //         this.user.value = data
+    //         this.employee.value = data
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+    //
+    // }
 })
 

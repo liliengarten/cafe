@@ -9,7 +9,7 @@ import {baseUrl} from "@/main";
 
 <template>
   <div>
-    <section class="employee-list employees">
+    <section class="employees">
       <article>
         <span>Имя</span>
         <span>Статус</span>
@@ -24,13 +24,13 @@ import {baseUrl} from "@/main";
       </div>
     </section>
 
-<!--    <employee-card v-show="store.employeeDetailedVisible"></employee-card>-->
+    <employee-card v-show="store.employeeDetailedVisible"></employee-card>
   </div>
 </template>
 
 <style scoped>
   .employees {
-    max-height: 75vh;
+    max-height: calc(100vh - 122px - 80px - 84px);
     overflow-y: scroll;
   }
 </style>

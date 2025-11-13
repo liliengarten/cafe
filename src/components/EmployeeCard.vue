@@ -20,13 +20,12 @@
     }
 
     await store.getEmployees()
-    store.employeeDetailedVisiblity()
   }
 </script>
 
 <template>
   <div class="modal worker">
-    <button @click="store.employeeDetailedVisiblity"> Close </button>
+    <button @click="store.employeeDetailedVisibility"> Close </button>
     <div class="d-f">
       <p>ФИО: </p>
       <p>{{ employee.value.name }}</p>

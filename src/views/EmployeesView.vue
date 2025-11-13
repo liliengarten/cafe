@@ -8,6 +8,8 @@ import {store} from "@/store/index"
 import {onMounted, ref} from "vue";
 
 onMounted(() => {
+  // store.getUser()
+  store.getUserRole()
   store.getEmployees()
 })
 </script>

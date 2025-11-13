@@ -12,7 +12,7 @@ const props = defineProps({
 const emit = defineEmits(['employeeDetailed'])
 
 const setEmployee = () => {
-  store.employeeDetailedVisiblity()
+  store.employeeDetailedVisibility()
   store.setEmployee(props.employee)
 }
 
