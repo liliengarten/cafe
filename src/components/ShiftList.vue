@@ -23,7 +23,7 @@ onMounted(() => {
     <button class="approve_button" @click="store.addShiftVisibility">Добавить смену</button>
     <shift-card @shift-detailed="handleShiftDetailed" v-for="shift in store.shifts" :key="shift.id" :shift="shift"></shift-card>
     <add-shift @shift-created="store.getShifts" v-if="store.addShiftVisible"></add-shift>
-    <shift-detailed :shift="shift"></shift-detailed>
+    <shift-detailed v-if="store.shiftDetailedVisible"></shift-detailed>
   </section>
 
 </template>

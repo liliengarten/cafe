@@ -1,13 +1,16 @@
 <script setup>
 import { store } from '@/store/index'
+import {onMounted} from "vue";
 
-import EmployeeCard from "@/components/EmployeeCard.vue";
-// убрать вьюху и использовать компонент если ничего не добавится
-
+onMounted(() => {
+  store.getEmployees()
+  store.getUser(localStorage.getItem("userLogin"))
+})
 </script>
 
 <template>
-  <employee-card :employeeId="store.userId"></employee-card>
+  <p>{{store.user.name}}</p>
+  <p>{{store.user.group}}</p>
 </template>
 
 <style scoped>

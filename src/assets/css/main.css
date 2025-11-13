@@ -53,6 +53,7 @@ a {
     min-width: 40vw;
     min-height: 50vh;
     left: calc(50% - 40wv);
+    top: 0;
     background: rgba(0, 95, 182, 0.98);
     z-index: 100;
 

@@ -16,9 +16,9 @@
     else return 'Закрыта'
   })
 
-  const emitShiftDetailed = () => {
-    store.shiftDetailedVisibility
-    emit('shiftDetailed', props.shift)
+  const changeShift = () => {
+    store.shiftDetailedVisibility()
+    store.setShift(props.shift)
   }
 
 </script>
@@ -29,7 +29,7 @@
     <p>Начало смены в {{shift.start}}</p>
     <p>Конец смены в {{shift.end}}</p>
     <p class="working">Статус: {{shiftStatus}}</p>
-    <button class="approve_button" @click="emitShiftDetailed">Управление</button>
+    <button class="approve_button" @click="changeShift">Управление</button>
   </article>
 </template>
 

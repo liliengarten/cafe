@@ -5,6 +5,11 @@ import AddEmployee from "@/components/AddEmployee.vue";
 import EmployeeCard from "@/components/EmployeeCard.vue";
 
 import {store} from "@/store/index"
+import {onMounted, ref} from "vue";
+
+onMounted(() => {
+  store.getEmployees()
+})
 </script>
 
 <template>

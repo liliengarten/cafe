@@ -9,7 +9,7 @@ const router = useRouter();
 let userInfo = reactive({
   userLogin: '',
   userPassword: ''
-}) // нужна ли тут вообще реактивность??
+})
 
 const attemptLogin = async () => {
   try {
@@ -32,7 +32,6 @@ const attemptLogin = async () => {
     localStorage.setItem("userLogin", userInfo.userLogin);
 
     await store.getEmployees()
-    await store.getEmployee(0, true)
 
     router.push('/home')
   } catch (err) {

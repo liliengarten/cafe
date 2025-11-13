@@ -3,34 +3,22 @@ import {store} from "@/store/index.js"
 import {baseUrl} from "@/main";
 
 const props = defineProps({
-  id: {
-    type: Number,
+  employee: {
+    type: Object,
     required: true
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-  status: {
-    type: String,
-    required: true,
-  },
-  group: {
-    type: String,
-    required: true,
   }
 })
 
 const emit = defineEmits(['employeeDetailed'])
 
-const emitEmployeeDetailed = () => {
+const setEmployee = () => {
   store.employeeDetailedVisiblity()
-  emit('employeeDetailed', props.id)
+  store.setEmployee(props.employee)
 }
 
 let fireEmployee = async () => {
   try {
-    const res = await fetch(baseUrl + '/user/' + props.id + 'to-dismiss', {
+    const res = await fetch(baseUrl + '/user/' + props.employee.id + 'to-dismiss', {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${localStorage.getItem("userToken")}`,
@@ -51,10 +39,10 @@ let fireEmployee = async () => {
 
 <template>
   <article>
-    <span>{{ name }}</span>
-    <span class="working">{{ status }}</span>
-    <span>{{ group }}</span>
-    <button @click="emitEmployeeDetailed">Подробнее</button>
+    <span>{{ employee.name }}</span>
+    <span class="working">{{ employee.status }}</span>
+    <span>{{ employee.group }}</span>
+    <button @click="setEmployee">Подробнее</button>
   </article>
 </template>
 

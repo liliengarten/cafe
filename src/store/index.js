@@ -2,12 +2,13 @@ import {reactive, ref} from "vue";
 import {baseUrl} from "@/main";
 
 export const store = reactive({
-    user: {},
+    user: ref({}),
     userRole: '',
 
-    employee: {},
-    employees: {},
+    employee: ref({}),
+    employees: ref({}),
 
+    shift: ref({}),
     shifts: {},
 
     addWorkerVisible: false,
@@ -41,24 +42,14 @@ export const store = reactive({
             if (!res.ok) throw "Authorization failed :("
 
             const { data } = await res.json();
-            this.employees = data
+            this.employees.value = data
         } catch (err) {
             console.log(err)
         }
     },
-    async getEmployee(id, currentUser){
-        let userId = id
-
-        if (currentUser) {
-            for (let employee of this.employees) {
-                if (employee.login === localStorage.getItem("userLogin")) {
-                    userId = employee.id
-                }
-            }
-        }
-
+    async getEmployee(id){
         try {
-            const res = await fetch(baseUrl + '/user/' + userId, {
+            const res = await fetch(baseUrl + '/user/' + id, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -69,14 +60,7 @@ export const store = reactive({
             if (!res.ok) throw "Something went wrong :("
 
             const { data } = await res.json();
-
-            if (currentUser) {
-                this.user = data
-                this.userRole = data.group
-            }
-            else this.employee = data
-
-            console.log(this.userRole)
+            this.employee.value = data
         } catch (err) {
             console.log(err)
         }
@@ -97,6 +81,42 @@ export const store = reactive({
         } catch (err) {
             console.log(err)
         }
+    },
+
+    setShift(shift) {
+        this.shift.value = shift
+    },
+    setEmployee(employee) {
+        this.employee.value = employee
+    },
+    async getUser(login) {
+        let id = 0
+
+        for (let employee of this.employees) {
+            if (employee.login === login) {
+                id = employee.id;
+            }
+        }
+
+        try {
+            const res = await fetch(baseUrl + '/user/' + id, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem("userToken")}`
+                }
+            })
+
+            if (!res.ok) throw "Something went wrong :("
+
+            const { data } = await res.json();
+            this.user.value = data
+            this.employee.value = data
+            this.userRole = data.group
+        } catch (err) {
+            console.log(err)
+        }
+
     }
 })
 

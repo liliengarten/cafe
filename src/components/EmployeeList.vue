@@ -2,31 +2,13 @@
 import {store} from "@/store/index"
 import EmployeeListCard from "@/components/EmployeeListCard.vue";
 import EmployeeCard from "@/components/EmployeeCard.vue";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {baseUrl} from "@/main";
-
-const handleFireEmployee = async(id) => {
-  try {
-    const res = await fetch(baseUrl + `/user/${id}/to-dismiss`, {
-      method: "GET",
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem("userToken")}`
-      }
-    })
-  } catch(err) {
-    console.log(err)
-  }
-}
-
-const handleEmployeeId = (id) => {
-  store.getEmployee(id, false)
-}
-
-const employeeId = ref(0)
 
 </script>
 
 <template>
+  <div>
     <section class="employee-list employees">
       <article>
         <span>Имя</span>
@@ -36,15 +18,14 @@ const employeeId = ref(0)
       </article>
 
       <div class="employees">
-        <employee-list-card @fire-employee="handleFireEmployee"
-                            @employee-detailed="handleEmployeeId"
-
-                            v-for="employee in store.employees" :key="employee.id">
+        <employee-list-card v-for="employee in store.employees.value" :key="employee.id"
+                            :employee="employee">
         </employee-list-card>
       </div>
     </section>
 
-    <employee-card class="modal" v-show="store.employeeDetailedVisible"></employee-card>
+<!--    <employee-card v-show="store.employeeDetailedVisible"></employee-card>-->
+  </div>
 </template>
 
 <style scoped>
