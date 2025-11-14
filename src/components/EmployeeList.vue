@@ -2,13 +2,10 @@
 import {store} from "@/store/index"
 import EmployeeListCard from "@/components/EmployeeListCard.vue";
 import EmployeeCard from "@/components/EmployeeCard.vue";
-import {onMounted, ref} from "vue";
-import {baseUrl} from "@/main";
 
 </script>
 
 <template>
-  <div>
     <section class="employees">
       <article>
         <span>Имя</span>
@@ -22,10 +19,8 @@ import {baseUrl} from "@/main";
                             :employee="employee">
         </employee-list-card>
       </div>
-    </section>
-
     <employee-card v-show="store.employeeDetailedVisible"></employee-card>
-  </div>
+    </section>
 </template>
 
 <style scoped>

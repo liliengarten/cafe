@@ -231,6 +231,8 @@ header img {
     display: grid;
     justify-items: center;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    max-height: calc(100vh - 122px - 80px - 84px);
+    overflow-y: scroll;
 }
 
 .shift > :first-child {
@@ -268,6 +270,7 @@ header img {
     font-size: 1.3rem;
 }
 
+
 .shift > article > button {
     padding: 1rem;
     font-size: 1.3rem;
@@ -283,7 +286,9 @@ header img {
 .orders {
     display: grid;
     justify-items: center;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    max-height: calc(100vh - 122px - 80px - 84px);
+    overflow-y: scroll;
 }
 
 .place_order {

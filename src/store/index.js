@@ -3,7 +3,9 @@ import { baseUrl } from "@/main";
 
 export const store = reactive({
   user: ref({}),
-  userRole: "",
+  userRole: ref({}),
+
+  photoPath: ref(''),
 
   employee: ref({}),
   employees: ref({}),
@@ -52,7 +54,7 @@ export const store = reactive({
       });
 
       if (adminCheck.status === 200) {
-        this.userRole = "Администратор";
+        this.userRole.value = "Администратор";
         return;
       } else {
         const cookCheck = await fetch(baseUrl + "/order/taken/get", {
@@ -63,13 +65,12 @@ export const store = reactive({
         });
 
         if (cookCheck.status === 200) {
-          this.userRole = "Повар";
+          this.userRole.value = "Повар";
           return;
         }
       }
 
-      this.userRole = "Официант";
-      console.log(this.userRole)
+      this.userRole.value = "Официант";
     } catch (err) {
       console.log(err);
     }
@@ -105,6 +106,8 @@ export const store = reactive({
 
       const { data } = await res.json();
       this.employee.value = data;
+      this.photoPath.value = data.photo_file
+      console.log(this.photoPath.value)
     } catch (err) {
       console.log(err);
     }

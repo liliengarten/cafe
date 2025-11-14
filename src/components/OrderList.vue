@@ -10,11 +10,11 @@ import AddOrder from "@/components/AddOrder.vue";
 onMounted(() => {
   store.getMenu()
 
-  if (store.userRole === 'Повар') {
+  if (store.userRole.value === 'Повар') {
     store.getOrders()
   }
 
-  else if (store.userRole === 'Официант') {
+  else if (store.userRole.value === 'Официант') {
     store.getWaiterOrders()
   }
 })
@@ -26,7 +26,7 @@ onMounted(() => {
   <section class="orders">
     <order-card v-for="order in store.orders.value" :order="order"></order-card>
     <order-detailed v-show="store.orderDetailedVisible"></order-detailed>
-    <button @click="store.addOrderVisibility" v-if="store.userRole === 'Официант'" class="approve_button place_order">Принять заказ</button>
+    <button @click="store.addOrderVisibility" v-if="store.userRole.value === 'Официант'" class="approve_button place_order">Принять заказ</button>
     <add-order v-if="store.addOrderVisible"></add-order>
   </section>
 </template>

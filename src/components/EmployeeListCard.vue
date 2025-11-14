@@ -40,7 +40,7 @@ let fireEmployee = async () => {
 <template>
   <article>
     <span>{{ employee.name }}</span>
-    <span class="working">{{ employee.status }}</span>
+    <span :class="employee.status === 'working' ? 'working' : 'fired'">{{ employee.status }}</span>
     <span>{{ employee.group }}</span>
     <button @click="setEmployee">Подробнее</button>
   </article>

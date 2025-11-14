@@ -33,9 +33,9 @@ let logout = async () => {
       <img src="@/assets/img/logo.png" alt="logo" />
     </router-link>
     <nav v-show="route.path !== '/'">
-      <router-link v-show="store.userRole === 'Администратор'" to="employees">Сотрудники</router-link>
-      <router-link v-show="store.userRole === 'Администратор'" to="shifts">Смены</router-link>
-      <router-link v-show="store.userRole !== 'Администратор'"  to="orders">Заказы</router-link>
+      <router-link v-show="store.userRole.value === 'Администратор'" to="employees">Сотрудники</router-link>
+      <router-link v-show="store.userRole.value === 'Администратор'" to="shifts">Смены</router-link>
+      <router-link v-show="store.userRole.value !== 'Администратор'"  to="orders">Заказы</router-link>
       <a href="#" @click="logout" class="cancel_button">Выход</a>
     </nav>
   </header>

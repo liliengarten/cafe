@@ -1,8 +1,8 @@
 <script setup>
 import { baseUrl } from "@/main";
+import {storageUrl} from "@/main";
 import { store } from "@/store/index";
-import { useRoute } from "vue-router";
-import {onMounted, ref, watch} from "vue";
+import {ref, watch} from "vue";
 
 const employee = ref({});
 
@@ -21,9 +21,10 @@ const fireEmployee = async () => {
   await store.getEmployees();
 };
 
+
 watch(store.employee, () => {
   employee.value = store.employee.value
-  console.log(employee.value)
+  console.log(employee.value.sta)
 })
 </script>
 
@@ -36,7 +37,7 @@ watch(store.employee, () => {
       <div class="employeeInfo">
         <img
           v-if="employee.photo_file"
-          :src="baseUrl + employee.photo_file"
+          :src="storageUrl"
           alt="worker photo"
         />
         <div class="d-f">
@@ -54,19 +55,11 @@ watch(store.employee, () => {
 
         <div class="d-f">
           <p>Статус:</p>
-          <p>{{ employee.status }}</p>
+          <p :class="employee.status === 'working' ? 'working' : 'fired'">{{ employee.status }}</p>
         </div>
         <button @click="fireEmployee" class="cancel_button">
           Уволен нахуй
         </button>
-      </div>
-
-      <div class="shifts">
-        <h3>Смены</h3>
-        <p>sdf</p>
-        <p>sdf</p>
-        <p>sdf</p>
-        <p>sdf</p>
       </div>
     </div>
   </div>

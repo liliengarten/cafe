@@ -21,8 +21,9 @@ const changeOrderStatus = async() => {
 
     if (!res.ok) throw "can't change order status :("
 
-    if (store.userRole === 'Повар') await store.getOrders()
-    else if (store.userRole === 'Официант') await store.getWaiterOrders()
+
+    if (store.userRole.value === 'Повар') await store.getOrders()
+    else if (store.userRole.value === 'Официант') await store.getWaiterOrders()
   } catch(err) {
     console.log(err)
   }
@@ -54,10 +55,10 @@ watch(store.order, () => {
       <option value="ready" >Готов</option>
     </select>
 
-    <div >
-      <select v-if="store.userRole === 'Официант'" v-model="orderStatus">
-        <option v-if="order.status === 'Принят'" value="canceled">Отменен</option>
-        <option v-if="order.status === 'Готов'" value="paid-up">Оплачен</option>
+    <div>
+      <select v-model="orderStatus">
+        <option value="canceled">Отменен</option>
+        <option value="paid-up">Оплачен</option>
       </select>
       <button class="approve_button" @click="changeOrderStatus">Изменить статус заказа</button>
     </div>

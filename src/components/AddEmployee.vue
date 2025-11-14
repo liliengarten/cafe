@@ -8,7 +8,7 @@ let employeeInfo = reactive({
   login: "",
   password: "",
   role_id: "",
-  photo_file: {},
+  photo_file: null,
 });
 
 let changePhotoFile = (event) => {
@@ -20,7 +20,13 @@ let createEmployee = async () => {
     const formData = new FormData();
 
     for (let key in employeeInfo) {
-      formData.append(key, employeeInfo[key]);
+      if (employeeInfo[key] !== null) {
+        formData.append(key, employeeInfo[key]);
+      }
+
+      else {
+        delete employeeInfo[key];
+      }
     }
 
     console.log(formData)
