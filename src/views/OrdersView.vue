@@ -1,7 +1,13 @@
 <script setup>
 import OrderList from "@/components/OrderList.vue";
-import AddOrder from "@/components/OrderList.vue";
-import OrderCard from "@/components/OrderList.vue";
+import {onMounted} from "vue";
+import {store} from "@/store";
+
+onMounted(() => {
+  // store.getUserRole()
+  // console.log(store.userRole)
+  // // if (store.userRole === 'Официант') store.getWaiterOrders()
+})
 </script>
 
 <template>

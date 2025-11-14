@@ -230,7 +230,7 @@ header img {
 .shift {
     display: grid;
     justify-items: center;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .shift > :first-child {
@@ -286,7 +286,7 @@ header img {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
-.orders > :first-child {
+.place_order {
     position: fixed;
     right: 10rem;
     bottom: 100px;

@@ -1,57 +1,64 @@
 <script setup>
-  import {baseUrl} from "@/main";
-  import {store} from "@/store/index"
-  import {useRoute} from "vue-router";
-  import {onMounted, ref} from "vue";
+import { baseUrl } from "@/main";
+import { store } from "@/store/index";
+import { useRoute } from "vue-router";
+import {onMounted, ref, watch} from "vue";
 
-  const employee = store.employee
+const employee = ref({});
 
-
-  const fireEmployee = async() => {
-    try {
-      const res = await fetch(baseUrl + `/user/${employee.value.id}/to-dismiss`, {
-        method: "GET",
-        headers: {
-          "Authorization": `Bearer ${localStorage.getItem("userToken")}`
-        }
-      })
-    } catch(err) {
-      console.log(err)
-    }
-
-    await store.getEmployees()
+const fireEmployee = async () => {
+  try {
+    const res = await fetch(baseUrl + `/user/${employee.value.id}/to-dismiss`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+      },
+    });
+  } catch (err) {
+    console.log(err);
   }
+
+  await store.getEmployees();
+};
+
+watch(store.employee, () => {
+  employee.value = store.employee.value
+  console.log(employee.value)
+})
 </script>
 
 <template>
   <div class="modal">
     <div class="modalWrapper">
-      <button @click="store.employeeDetailedVisibility" class="close_button"> Назад</button>
+      <button @click="store.employeeDetailedVisibility" class="close_button">
+        Назад
+      </button>
       <div class="employeeInfo">
-        <img class="employeePhoto" src="./peter.jpg" alt="">
-      <!--    <img v-if="employee.photo_file" :src="baseUrl + employee.photo_file" alt="worker photo">-->
+        <img
+          v-if="employee.photo_file"
+          :src="baseUrl + employee.photo_file"
+          alt="worker photo"
+        />
         <div class="d-f">
-          <p>ФИО: </p>
-          <!--      <p>{{ employee.value.name }}</p>-->
-          <p>Питер</p>
+          <p>ФИО:</p>
+          <p>{{ employee.name }}</p>
         </div>
         <div class="d-f">
           <p>Логин:</p>
-          <!--      <p>{{employee.value.login}}</p>-->
-          <p>Гриффин</p>
+          <p>{{ employee.login }}</p>
         </div>
-        <!--    <p>{{employee.group}}</p>-->
         <div class="d-f">
           <p>Должность:</p>
-          <p>Супер админ</p>
+          <p>{{ employee.group }}</p>
         </div>
 
         <div class="d-f">
           <p>Статус:</p>
-<!--          <p>{{employee.status}}</p>-->
-          <p>В питеркоптере</p>
+          <p>{{ employee.status }}</p>
         </div>
-      <button @click="fireEmployee" class="cancel_button">Уволен нахуй</button>
+        <button @click="fireEmployee" class="cancel_button">
+          Уволен нахуй
+        </button>
       </div>
 
       <div class="shifts">
@@ -78,7 +85,6 @@
   padding-inline: 10%;
 }
 
-
 .cancel_button {
   margin-left: 0;
 }
@@ -88,5 +94,4 @@
   max-height: 100%;
   overflow-y: scroll;
 }
-
 </style>

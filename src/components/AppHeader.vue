@@ -1,9 +1,10 @@
 <script setup>
 import { baseUrl } from "@/main";
 import { store } from "@/store";
-import { useRouter } from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 
 const router = useRouter();
+const route = useRoute()
 
 let logout = async () => {
   try {
@@ -31,13 +32,17 @@ let logout = async () => {
     <router-link to="/home">
       <img src="@/assets/img/logo.png" alt="logo" />
     </router-link>
-    <nav>
+    <nav v-show="route.path !== '/'">
       <router-link v-show="store.userRole === 'Администратор'" to="employees">Сотрудники</router-link>
       <router-link v-show="store.userRole === 'Администратор'" to="shifts">Смены</router-link>
-      <router-link to="orders">Заказы</router-link>
+      <router-link v-show="store.userRole !== 'Администратор'"  to="orders">Заказы</router-link>
       <a href="#" @click="logout" class="cancel_button">Выход</a>
     </nav>
   </header>
 </template>
 
-<style scoped></style>
+<style scoped>
+header {
+  height: 173px;
+}
+</style>

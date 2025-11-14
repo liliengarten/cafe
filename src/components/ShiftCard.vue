@@ -20,7 +20,6 @@
     store.shiftDetailedVisibility()
     store.setShift(props.shift)
   }
-
 </script>
 
 <template>

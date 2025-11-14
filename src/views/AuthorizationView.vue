@@ -31,7 +31,6 @@ const attemptLogin = async () => {
     localStorage.setItem("userToken", data.user_token);
     localStorage.setItem("userLogin", userInfo.userLogin);
 
-    await store.getEmployees()
 
     router.push('/home')
   } catch (err) {

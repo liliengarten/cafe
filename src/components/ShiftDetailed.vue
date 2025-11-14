@@ -141,7 +141,7 @@ const addEmployee = async () => {
 
 <template>
   <div class="modal">
-    <form class="modalWrapper">
+    <form class="modalWrapper" @submit.prevent>
       <button @click="store.shiftDetailedVisibility" class="close_button">Назад</button>
       <p>{{ shift.id }}</p>
 
@@ -161,7 +161,7 @@ const addEmployee = async () => {
         <article>
           <h3>Добавить сотрудника на смену</h3>
           <select v-model="employeeToAdd">
-            <option v-for="employee in store.employees" :value="employee.id">
+            <option v-for="employee in store.employees.value" :value="employee.id">
               {{ employee.group }}
               {{ employee.name }}
             </option>
